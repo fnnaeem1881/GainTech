@@ -32,26 +32,40 @@
               <div class="row">
                 <div class="col-12 col-sm-auto mb-3">
                   <div class="mx-auto" style="width: 140px;">
-                    <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                      <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
+                    <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);overflow: hidden;">
+                        <img style="width: 100%" src="{{asset('image/')}}/{{Auth::user()->photo}}">
                     </div>
                   </div>
                 </div>
+                <form action="{{route('profile_update')}}" class="form" method="POST" enctype="multipart/form-data" novalidate="">
+    @csrf
+                    <div class="text-center">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
                 <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                   <div class="text-center text-sm-left mb-2 mb-sm-0">
-                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">John Smith</h4>
-                    <p class="mb-0">@johnny.s</p>
+                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{Auth::user()->name}}</h4>
+                    <p class="mb-0">@ {{Auth::user()->username}}</p>
                     <div class="text-muted"><small>Last seen 2 hours ago</small></div>
                     <div class="mt-2">
                       <button class="btn btn-primary" type="button">
                         <i class="fa fa-fw fa-camera"></i>
-                        <span><input type="file" name="picture"></span>
+                        <span><input type="file" name="photo"></span>
+                        <span><input type="hidden" name="old_photo" value="{{Auth::user()->photo}}"></span>
                       </button>
                     </div>
                   </div>
                   <div class="text-center text-sm-right">
                     <span class="badge badge-secondary">administrator</span>
-                    <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
+                    <div class="text-muted"><small>{{Auth::user()->created_at}}</small></div>
                   </div>
                 </div>
               </div>
@@ -60,20 +74,19 @@
               </ul>
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
-                  <form class="form" novalidate="">
                     <div class="row">
                       <div class="col">
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
                               <label>Full Name</label>
-                              <input class="form-control" type="text" name="name" placeholder="John Smith" value="John Smith">
+                              <input class="form-control" type="text" name="name" placeholder="Enter Name" value="{{Auth::user()->name}}">
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group">
                               <label>Username</label>
-                              <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">
+                              <input class="form-control" type="text" name="username" placeholder="Enter Username" value="{{Auth::user()->username}}">
                             </div>
                           </div>
                         </div>
@@ -81,7 +94,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Email</label>
-                              <input class="form-control" type="text" placeholder="user@example.com">
+                              <input class="form-control" type="email" name="email" value="{{Auth::user()->email}}">
                             </div>
                           </div>
                         </div>
@@ -89,7 +102,7 @@
                           <div class="col mb-3">
                             <div class="form-group">
                               <label>About</label>
-                              <textarea class="form-control" rows="5" placeholder="My Bio"></textarea>
+                              <textarea class="form-control" rows="5" name="about" placeholder="My Bio">{{Auth::user()->about}}</textarea>
                             </div>
                           </div>
                         </div>
@@ -102,7 +115,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Current Password</label>
-                              <input class="form-control" type="password" placeholder="••••••">
+                              <input class="form-control" name="current_pass" type="password" placeholder="••••••">
                             </div>
                           </div>
                         </div>
@@ -110,7 +123,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>New Password</label>
-                              <input class="form-control" type="password" placeholder="••••••">
+                              <input class="form-control"  name="new_pass" type="password" placeholder="••••••">
                             </div>
                           </div>
                         </div>
@@ -118,7 +131,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                              <input class="form-control" type="password" placeholder="••••••"></div>
+                              <input class="form-control"  name="conf_pass" type="password" placeholder="••••••"></div>
                           </div>
                         </div>
                       </div>
