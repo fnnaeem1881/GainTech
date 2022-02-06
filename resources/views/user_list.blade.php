@@ -150,7 +150,11 @@ input:checked + .slider:before {
                       <td class="text-nowrap align-middle">{{$row->name}}</td>
                       <td class="text-nowrap align-middle"><span>{{$row->created_at}}</span></td>
                       <td class="text-center align-middle">
-                          <i class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"></i>
+                        @if($row->status == 1)
+                        <i class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"></i>
+                        @else
+                        <i class="fa fa-fw text-secondary cursor-pointer fa-toggle-off"></i>
+                        @endif
                         </td>
                       <td class="text-center align-middle">
                         <div class="btn-group align-top">
@@ -316,7 +320,10 @@ input:checked + .slider:before {
     </div>
 
       <!-- Edit Form Model -->
-      <div class="modal fade" role="dialog" tabindex="-1" id="user-edit-form-modal">
+      @foreach ($edit as $row)
+
+
+      <div class="modal fade" role="dialog" tabindex="-1" id="user-edit-form-modal{{$row->id}}">
         <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -327,20 +334,21 @@ input:checked + .slider:before {
             </div>
             <div class="modal-body">
             <div class="py-1">
-                <form class="form" novalidate="">
+                <form action="{{route('user_update',$row->id)}}" class="form" method="POST" enctype="multipart/form-data" novalidate="">
+                    @csrf
                 <div class="row">
                     <div class="col">
                     <div class="row">
                         <div class="col">
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input class="form-control" type="text" name="name" placeholder="John Smith" value="John Smith">
+                            <input class="form-control" type="text" name="name" placeholder="Enter Name" value="{{$row->name}}">
                         </div>
                         </div>
                         <div class="col">
                         <div class="form-group">
                             <label>Username</label>
-                            <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">
+                            <input class="form-control" type="text" name="username" placeholder="Enter Username" value="{{$row->username}}">
                         </div>
                         </div>
                     </div>
@@ -348,7 +356,30 @@ input:checked + .slider:before {
                         <div class="col">
                         <div class="form-group">
                             <label>Email</label>
-                            <input class="form-control" type="text" placeholder="user@example.com">
+                            <input class="form-control" type="email" name="email" value="{{$row->email}}">
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                        <div class="form-group">
+                            <label>Photos</label>
+                            <input class="form-control" type="file" name="photo" >
+                            <input class="form-control" type="hidden" name="old_photo" placeholder="Enter Name" value="{{$row->photo}}">
+
+                        </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col">
+                            <label>Status</label>
+
+                        <div class="form-group">
+                            <label for="active">Active</label>
+                            <input class="s-control" type="radio" id="active" name="status" placeholder="Enter status" value="1">
+
+                            <label for="inactive">Inactive </label>
+                             <input class="s-control" id="inactive" type="radio" name="status" placeholder="Enter status" value="0">
                         </div>
                         </div>
                     </div>
@@ -356,7 +387,7 @@ input:checked + .slider:before {
                         <div class="col mb-3">
                         <div class="form-group">
                             <label>About</label>
-                            <textarea class="form-control" rows="5" placeholder="My Bio"></textarea>
+                            <textarea class="form-control" rows="5" name="about" placeholder="My Bio">{{$row->about}}</textarea>
                         </div>
                         </div>
                     </div>
@@ -369,7 +400,7 @@ input:checked + .slider:before {
                         <div class="col">
                         <div class="form-group">
                             <label>Current Password</label>
-                            <input class="form-control" type="password" placeholder="••••••">
+                            <input class="form-control" name="current_pass" type="password" placeholder="••••••">
                         </div>
                         </div>
                     </div>
@@ -377,13 +408,13 @@ input:checked + .slider:before {
                         <div class="col">
                         <div class="form-group">
                             <label>New Password</label>
-                            <input class="form-control" type="password" placeholder="••••••">
+                            <input class="form-control"  name="new_pass" type="password" placeholder="••••••">
                         </div>
                         </div>
                         <div class="col">
                         <div class="form-group">
                             <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                            <input class="form-control" type="password" placeholder="••••••"></div>
+                            <input class="form-control"  name="conf_pass" type="password" placeholder="••••••"></div>
                         </div>
                     </div>
                     </div>
@@ -400,6 +431,7 @@ input:checked + .slider:before {
         </div>
         </div>
     </div>
+    @endforeach
 </div>
 </div>
 

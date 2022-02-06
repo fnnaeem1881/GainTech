@@ -22,7 +22,8 @@ class UserController extends Controller
     public function index()
     {
         $data =  DB::table('users')->simplePaginate(10);
-        return view('user_list',compact('data'));
+        $edit=DB::table('users')->get();
+        return view('user_list',compact('data','edit'));
     }
 
     /**
@@ -181,7 +182,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -190,7 +191,103 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $pass= DB::table('users')->where('id',$id)->first();
+
+        $data['name']=$request->name;
+        $data['username']=$request->username;
+        $data['email']=$request->email;
+        $data['about']=$request->about;
+        $data['status']=$request->status;
+        $photo= $request->hasFile('photo');
+        $password = $pass->password;
+        $oldpass = $request->current_pass;
+        $newpass = $request->new_pass;
+        $retypepass = $request->conf_pass;
+
+
+        if ($photo){
+
+            $file = $request->file('photo');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time(). '.'.$extension;
+            $file->move('image',$filename);
+            $data['photo']=$filename;
+
+            if($oldpass){
+                if(isset($oldpass)) {
+                    if(Hash::check($oldpass, $password)) {
+
+                        if ($newpass == $retypepass) {
+
+                            $data['password'] = Hash::make($newpass);
+
+                            $update= DB::table('users')->where('id',$id)->update($data);
+
+                            session()->flash('passupdte', 'Your Password has been Successfully Updated');
+                            return redirect()->back();
+
+                        } else {
+                            session()->flash('notmatch', 'New Password does not match');
+                            return redirect()->back();
+                        }
+
+
+                    } else {
+
+                        session()->flash('warning', 'You have Entered Wrong Current Password');
+                        return redirect()->back();
+                    }
+
+                }
+
+
+            }else{
+
+                $update= DB::table('users')->where('id',$id)->update($data);
+                return redirect()->back();
+            }
+
+        }else{
+            $data['photo']=$request->old_photo;
+            if($oldpass){
+                if(isset($oldpass)) {
+                    if(Hash::check($oldpass, $password)) {
+
+                        if ($newpass == $retypepass) {
+
+                            $data['password'] = Hash::make($newpass);
+
+
+                            $update= DB::table('users')->where('id',$id)->update($data);
+
+
+
+                            session()->flash('passupdte', 'Your Password has been Successfully Updated');
+                            return redirect()->back();
+
+                        } else {
+                            session()->flash('notmatch', 'New Password does not match');
+                            return redirect()->back();
+                        }
+
+
+                    } else {
+
+                        session()->flash('warning', 'You have Entered Wrong Current Password');
+                        return redirect()->back();
+                    }
+
+                }
+
+
+            }else{
+
+                $update= DB::table('users')->where('id',$id)->update($data);
+                return redirect()->back();
+            }
+
+        }
     }
 
     /**
