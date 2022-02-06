@@ -59,7 +59,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('message','Data added Successfully');
     }
 
 // Auth Profile Update
@@ -97,19 +97,16 @@ class UserController extends Controller
 
                             $update= DB::table('users')->where('id',$id)->update($data);
 
-                            session()->flash('passupdte', 'Your Password has been Successfully Updated');
-                            return redirect()->back();
+                            return redirect()->back()->with('message','Data Updated Successfully');
 
                         } else {
-                            session()->flash('notmatch', 'New Password does not match');
-                            return redirect()->back();
+                            return redirect()->back()->with('error','New Password does not match');
                         }
 
 
                     } else {
 
-                        session()->flash('warning', 'You have Entered Wrong Current Password');
-                        return redirect()->back();
+                        return redirect()->back()->with('error','You have Entered Wrong Current Password');
                     }
 
                 }
@@ -118,7 +115,7 @@ class UserController extends Controller
             }else{
 
                 $update= DB::table('users')->where('id',$id)->update($data);
-                return redirect()->back();
+                return redirect()->back()->with('message','Data Updated Successfully');
             }
 
         }else{
@@ -136,19 +133,16 @@ class UserController extends Controller
 
 
 
-                            session()->flash('passupdte', 'Your Password has been Successfully Updated');
-                            return redirect()->back();
+                            return redirect()->back()->with('message','Data Updated Successfully');
 
                         } else {
-                            session()->flash('notmatch', 'New Password does not match');
-                            return redirect()->back();
+                            return redirect()->back()->with('error','New Password does not match');
                         }
 
 
                     } else {
 
-                        session()->flash('warning', 'You have Entered Wrong Current Password');
-                        return redirect()->back();
+                        return redirect()->back()->with('error','You have Entered Wrong Current Password');
                     }
 
                 }
@@ -157,7 +151,7 @@ class UserController extends Controller
             }else{
 
                 $update= DB::table('users')->where('id',$id)->update($data);
-                return redirect()->back();
+                return redirect()->back()->with('message','Data Updated Successfully');
             }
 
         }
@@ -224,19 +218,16 @@ class UserController extends Controller
 
                             $update= DB::table('users')->where('id',$id)->update($data);
 
-                            session()->flash('passupdte', 'Your Password has been Successfully Updated');
-                            return redirect()->back();
+                            return redirect()->back()->with('message','Data Updated Successfully');
 
                         } else {
-                            session()->flash('notmatch', 'New Password does not match');
-                            return redirect()->back();
+                            return redirect()->back()->with('error','New Password does not match');
                         }
 
 
                     } else {
 
-                        session()->flash('warning', 'You have Entered Wrong Current Password');
-                        return redirect()->back();
+                        return redirect()->back()->with('error','You have Entered Wrong Current Password');
                     }
 
                 }
@@ -245,7 +236,7 @@ class UserController extends Controller
             }else{
 
                 $update= DB::table('users')->where('id',$id)->update($data);
-                return redirect()->back();
+                return redirect()->back()->with('message','Data Updated Successfully');
             }
 
         }else{
@@ -263,19 +254,16 @@ class UserController extends Controller
 
 
 
-                            session()->flash('passupdte', 'Your Password has been Successfully Updated');
-                            return redirect()->back();
+                            return redirect()->back()->with('message','Data Updated Successfully');
 
                         } else {
-                            session()->flash('notmatch', 'New Password does not match');
-                            return redirect()->back();
+                            return redirect()->back()->with('error','New Password does not match');
                         }
 
 
                     } else {
 
-                        session()->flash('warning', 'You have Entered Wrong Current Password');
-                        return redirect()->back();
+                        return redirect()->back()->with('error','You have Entered Wrong Current Password');
                     }
 
                 }
@@ -284,7 +272,7 @@ class UserController extends Controller
             }else{
 
                 $update= DB::table('users')->where('id',$id)->update($data);
-                return redirect()->back();
+                return redirect()->back()->with('message','Data Updated Successfully');
             }
 
         }
