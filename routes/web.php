@@ -25,6 +25,7 @@ Route::get('/destroy/{id}', [UserController::class, 'destroy'])->name('destroy')
 Route::post('/profile_update', [UserController::class, 'profile_update'])->name('profile_update');
 Route::post('/user_update/{id}', [UserController::class, 'update'])->name('user_update');
 Route::post('/user_store', [UserController::class, 'store'])->name('user_store');
+Route::post('/deleteAll', [UserController::class, 'deleteAll'])->name('deleteAll');
 
 Route::get('/edit/{id}',[UserController::class, 'edit'])->name('user_edit');
 

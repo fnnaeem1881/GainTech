@@ -116,8 +116,12 @@ input:checked + .slider:before {
       <div class="col mb-3">
         <div class="e-panel card">
           <div class="card-body">
-            <div class="card-title">
-              <h6 class="mr-2"><span>Users</span><small class="px-1">Be a wise leader</small></h6>
+              <form action="{{route('deleteAll')}}" method="POST">
+                @csrf
+
+            <div class="card-title " style="overflow: hidden;">
+              <span class="mr-2  float-left" style="font-size:20px;"><span>Users</span><small class="px-1">Be a wise leader</small></span>
+              <span class="mr-2 float-right"><button type="submit" class="btn btn-danger btn-sm"><small class="px-1">Delete All</small></button></span>
             </div>
             <div class="e-table">
               <div class="table-responsive table-lg mt-3">
@@ -125,10 +129,7 @@ input:checked + .slider:before {
                   <thead>
                     <tr>
                       <th class="align-top">
-                        <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
-                          <input type="checkbox" class="custom-control-input" id="all-items">
-                          <label class="custom-control-label" for="all-items"></label>
-                        </div>
+                        Select
                       </th>
                       <th>Photo</th>
                       <th class="max-width">Name</th>
@@ -146,7 +147,7 @@ input:checked + .slider:before {
 
                       <td class="align-middle">
                         <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                          <input type="checkbox" class="custom-control-input" id="item-{{$row->id}}">
+                          <input type="checkbox" name="ids[]" value="{{$row->id}}" class="custom-control-input" id="item-{{$row->id}}">
                           <label class="custom-control-label" for="item-{{$row->id}}"></label>
                         </div>
                       </td>
@@ -185,6 +186,7 @@ input:checked + .slider:before {
                     {{ $data->links() }}
                 </ul>
               </div>
+            </form>
             </div>
           </div>
         </div>

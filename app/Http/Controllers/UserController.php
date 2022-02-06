@@ -284,7 +284,17 @@ class UserController extends Controller
     public function destroy($id)
     {
         $delete = DB::table('users')->where('id',$id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('info','Data Deleted Successfully');
+    }
+    public function deleteAll(Request $request)
+    {
+        $validated = $request->validate([
+            'ids' => 'required',
+        ]);
+
+        $ids = $request->ids;
+        DB::table("users")->whereIn('id',$ids)->delete();
+        return redirect()->back()->with('error','Data Deleted Successfully');
     }
 
 }
