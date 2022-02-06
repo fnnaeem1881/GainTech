@@ -20,10 +20,10 @@ use App\Http\Controllers\UserController;
 Route::get('/', [UserController::class, 'index'])->name('user_list');
 
 
-Route::get('/profile_view/{$id}', [UserController::class, 'show'])->name('profile_view');
+Route::get('/profile_view/{id}', [UserController::class, 'show'])->name('profile_view');
+Route::get('/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
 Route::post('/profile_update', [UserController::class, 'profile_update'])->name('profile_update');
 Route::post('/user_store', [UserController::class, 'store'])->name('user_store');
-Route::get('/destory/{$id}','App\Http\Controllers\UserController@dehstroy')->name('destroy');
 
 
 // Route::get('/destroy/{$id}', function ($id) {

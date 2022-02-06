@@ -65,12 +65,13 @@ class UserController extends Controller
     public function profile_update(Request $request)
     {
 
+
+        $id = Auth::user()->id;
         $data['name']=$request->name;
         $data['username']=$request->username;
         $data['email']=$request->email;
         $data['about']=$request->about;
         $photo= $request->hasFile('photo');
-
         $password = auth()->user()->password;
         $oldpass = $request->current_pass;
         $newpass = $request->new_pass;
@@ -114,7 +115,8 @@ class UserController extends Controller
 
 
             }else{
-                $update= DB::table('users')->update($data);
+
+                $update= DB::table('users')->where('id',$id)->update($data);
                 return redirect()->back();
             }
 
@@ -152,7 +154,8 @@ class UserController extends Controller
 
 
             }else{
-                $update= DB::table('users')->update($data);
+
+                $update= DB::table('users')->where('id',$id)->update($data);
                 return redirect()->back();
             }
 
@@ -165,9 +168,10 @@ class UserController extends Controller
      *
 
      */
-    public function show($id=null)
+    public function show($id)
     {
-        //
+        $show = DB::table('users')->where('id',$id)->first();
+        return view('view_profile')->with('show',$show);;
     }
 
     /**
@@ -192,7 +196,7 @@ class UserController extends Controller
     /**
 
      */
-    public function dehstroy($id)
+    public function destroy($id)
     {
         $delete = DB::table('users')->where('id',$id)->delete();
         return redirect()->back();

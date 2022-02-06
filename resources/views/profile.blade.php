@@ -22,7 +22,17 @@
       </div>
     </div>
   </div>
-
+  <div class="text-center">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+</div>
   <div class="col">
     <div class="row">
       <div class="col mb-3">
@@ -39,17 +49,7 @@
                 </div>
                 <form action="{{route('profile_update')}}" class="form" method="POST" enctype="multipart/form-data" novalidate="">
     @csrf
-                    <div class="text-center">
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-                    </div>
+
                 <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                   <div class="text-center text-sm-left mb-2 mb-sm-0">
                     <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{Auth::user()->name}}</h4>

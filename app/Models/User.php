@@ -25,6 +25,7 @@ class User extends Authenticatable
         'old_photo',
         'about',
         'status',
+        'username'
 
     ];
 
