@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>bs4 crud users - Bootdey.com</title>
+    <title>User List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -18,8 +18,8 @@
     <div class="card p-3">
       <div class="e-navlist e-navlist--active-bg">
         <ul class="nav">
-          <li class="nav-item"><a class="nav-link px-2 active" href="profile.html"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Profile</span></a></li>
-          <li class="nav-item"><a class="nav-link px-2" href="user_list.html"><i class="fa fa-fw fa-th mr-1"></i><span>User CRUD</span></a></li>
+          <li class="nav-item"><a class="nav-link px-2 active" href="{{route('profile')}}"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Profile</span></a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="{{route('user_list')}}"><i class="fa fa-fw fa-th mr-1"></i><span>User CRUD</span></a></li>
         </ul>
       </div>
     </div>
