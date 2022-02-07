@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 
 use Illuminate\Validation\Rules;
@@ -31,9 +32,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function active_list()
     {
-        //
+        $data =  DB::table('users')->where('status','1')->simplePaginate(10);
+        $edit=DB::table('users')->get();
+        return view('active_list',compact('data','edit'));
     }
 
     /**
@@ -54,6 +57,7 @@ class UserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'status' => '0',
             'username' => $request->username,
             'about' => $request->about,
             'email' => $request->email,
@@ -174,8 +178,25 @@ class UserController extends Controller
      *
 
      */
-    public function edit($id)
+    public function search(Request $request)
     {
+
+        $name=$request->name;
+        $status=$request->user_status;
+
+        $from = date('2018-01-01');
+        $to = date('2018-05-02');
+
+        $edit=DB::table('users')->get();
+
+        if($name){
+            $data =DB::table('users')->where("created_at",">", Carbon::now()->subMonths(3))->where('name',$name)->where('status',$status)->simplePaginate(10);
+
+            return view('search_result',compact('data','edit'));
+        }else{
+            $data =DB::table('users')->where("created_at",">", Carbon::now()->subMonths(3))->where('status',$status)->simplePaginate(10);
+        return view('search_result',compact('data','edit'));
+        }
 
     }
 

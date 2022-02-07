@@ -120,7 +120,7 @@ input:checked + .slider:before {
                 @csrf
 
             <div class="card-title " style="overflow: hidden;">
-              <span class="mr-2  float-left" style="font-size:20px;"><span>All Users</span><small class="px-1">Be a wise leader</small></span>
+              <span class="mr-2  float-left" style="font-size:20px;"><span>Active Users</span><small class="px-1">Be a wise leader</small></span>
               <span class="mr-2 float-right"><button type="submit" class="btn btn-danger btn-sm"><small class="px-1">Delete All</small></button></span>
             </div>
             <div class="e-table">

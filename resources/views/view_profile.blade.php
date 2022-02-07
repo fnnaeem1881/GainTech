@@ -52,7 +52,10 @@
                   </div>
                   <div class="text-center text-sm-right">
                     <span class="badge badge-secondary">administrator</span>
-                    <div class="text-muted"><small>Joined {{$show->created_at}}</small></div>
+                    <div class="text-muted"><small>Joined
+                        {{ \Carbon\Carbon::parse($show->created_at)->format('M D Y ')}}
+
+                        </small></div>
                   </div>
                 </div>
               </div>

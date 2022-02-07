@@ -26,8 +26,10 @@ Route::post('/profile_update', [UserController::class, 'profile_update'])->name(
 Route::post('/user_update/{id}', [UserController::class, 'update'])->name('user_update');
 Route::post('/user_store', [UserController::class, 'store'])->name('user_store');
 Route::post('/deleteAll', [UserController::class, 'deleteAll'])->name('deleteAll');
+Route::post('/search', [UserController::class, 'search'])->name('search');
 
 Route::get('/edit/{id}',[UserController::class, 'edit'])->name('user_edit');
+Route::get('/active_list',[UserController::class, 'active_list'])->name('active_list');
 
 
 Route::get('/profile', function () {
